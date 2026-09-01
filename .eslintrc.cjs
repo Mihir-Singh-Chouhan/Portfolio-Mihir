@@ -1,27 +1,34 @@
-{
-  "root": true,
-  "env": {
-    "browser": true,
-    "es2020": true
+module.exports = {
+  root: true,
+
+  env: {
+    browser: true,
+    es2020: true,
+    node: true,
   },
-  "extends": [
+
+  extends: [
     "eslint:recommended",
-    "plugin:@typescript-eslint/recommended"
+    "plugin:@typescript-eslint/recommended",
   ],
-  "ignorePatterns": [
+
+  ignorePatterns: [
     "dist",
-    ".eslintignore"
   ],
-  "parser": "@typescript-eslint/parser",
-  "plugins": [
-    "react-refresh"
+
+  parser: "@typescript-eslint/parser",
+
+  plugins: [
+    "@typescript-eslint",
+    "react-refresh",
   ],
-  "rules": {
+
+  rules: {
     "react-refresh/only-export-components": [
       "warn",
       {
-        "allowConstantExport": true
-      }
-    ]
-  }
-}
+        allowConstantExport: true,
+      },
+    ],
+  },
+};

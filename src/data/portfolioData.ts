@@ -39,7 +39,7 @@ export const portfolioData = {
     github: "",
     location: "India",
     availability: "Available for opportunities",
-    yearsExperience: "1.9+",
+    yearsExperience: "1.7+",
   },
   hero: {
     badge: "FULL STACK DEVELOPER",

@@ -51,7 +51,7 @@ export const portfolioData = {
     title: "Engineering with purpose.",
     description: "I enjoy turning complex requirements into simple, scalable and maintainable software. My focus is backend architecture, distributed systems, APIs and seamless frontend experiences.",
     stats: [
-      { value: "1.5+", label: "Years Experience" },
+      { value: "1.9+", label: "Years Experience" },
       { value: "10M+", label: "Users Supported" },
       { value: "90%+", label: "Unit Test Coverage" },
       { value: "30%", label: "API Latency Improvement" },

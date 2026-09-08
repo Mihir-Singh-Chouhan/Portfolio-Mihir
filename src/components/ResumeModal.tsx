@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Download, Printer, ExternalLink, Mail, MapPin, Linkedin, Github, FileText, Eye } from 'lucide-react';
+import WhatsAppIcon from './WhatsAppIcon';
 import { portfolioData } from '../data/portfolioData';
 
 interface ResumeModalProps {
@@ -9,7 +10,7 @@ interface ResumeModalProps {
 }
 
 const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => {
-  const [activeTab, setActiveTab] = useState<'pdf' | 'preview'>('pdf');
+  const [activeTab, setActiveTab] = useState<'pdf' | 'preview'>('preview');
 
   const handlePrint = () => {
     window.print();
@@ -198,6 +199,17 @@ const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => {
                         className="hover:underline text-accent-blue"
                       >
                         github.com/Mihir-Singh-Chouhan
+                      </a>
+                    </div>
+                    <div className="flex items-center sm:justify-end gap-1.5">
+                      <WhatsAppIcon size={13} className="text-accent-blue" />
+                      <a
+                        href={portfolioData.personal.whatsapp}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="hover:underline text-accent-blue"
+                      >
+                        +91-9424766602 (WhatsApp)
                       </a>
                     </div>
                     <div className="flex items-center sm:justify-end gap-1.5">

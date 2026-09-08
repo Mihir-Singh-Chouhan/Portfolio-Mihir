@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Mail, Linkedin, Github, ArrowUp } from 'lucide-react';
+import WhatsAppIcon from './WhatsAppIcon';
 import { portfolioData } from '../data/portfolioData';
 
 interface FooterProps {
@@ -66,7 +67,7 @@ const Footer: React.FC<FooterProps> = ({ onOpenEmailModal }) => {
             {/* Email icon with reliable click handler */}
             <motion.button
               onClick={handleEmailClick}
-              className="p-2.5 rounded-xl border border-card-border bg-white hover:border-accent-blue text-text-secondary hover:text-accent-blue transition-colors shadow-2xs cursor-pointer"
+              className="w-10 h-10 p-2.5 rounded-xl border border-card-border bg-white hover:border-accent-blue text-text-secondary hover:text-accent-blue transition-colors shadow-2xs cursor-pointer flex items-center justify-center shrink-0"
               whileHover={{ scale: 1.08 }}
               aria-label="Email Mihir"
               title="Send an email to Mihir"
@@ -78,7 +79,7 @@ const Footer: React.FC<FooterProps> = ({ onOpenEmailModal }) => {
               href={portfolioData.personal.linkedin}
               target="_blank"
               rel="noopener noreferrer"
-              className="p-2.5 rounded-xl border border-card-border bg-white hover:border-accent-blue text-text-secondary hover:text-accent-blue transition-colors shadow-2xs"
+              className="w-10 h-10 p-2.5 rounded-xl border border-card-border bg-white hover:border-accent-blue text-text-secondary hover:text-accent-blue transition-colors shadow-2xs flex items-center justify-center shrink-0"
               whileHover={{ scale: 1.08 }}
               aria-label="LinkedIn Profile"
               title="Open LinkedIn profile"
@@ -90,7 +91,7 @@ const Footer: React.FC<FooterProps> = ({ onOpenEmailModal }) => {
               href={portfolioData.personal.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="p-2.5 rounded-xl border border-card-border bg-white hover:border-accent-blue text-text-secondary hover:text-accent-blue transition-colors shadow-2xs"
+              className="w-10 h-10 p-2.5 rounded-xl border border-card-border bg-white hover:border-accent-blue text-text-secondary hover:text-accent-blue transition-colors shadow-2xs flex items-center justify-center shrink-0"
               whileHover={{ scale: 1.08 }}
               aria-label="GitHub Profile"
               title="Open GitHub profile"
@@ -98,9 +99,21 @@ const Footer: React.FC<FooterProps> = ({ onOpenEmailModal }) => {
               <Github size={18} />
             </motion.a>
 
+            <motion.a
+              href={portfolioData.personal.whatsapp}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-10 h-10 p-2.5 rounded-xl border border-card-border bg-white hover:border-accent-blue text-text-secondary hover:text-accent-blue transition-colors shadow-2xs flex items-center justify-center shrink-0"
+              whileHover={{ scale: 1.08 }}
+              aria-label="WhatsApp"
+              title="Chat with Mihir on WhatsApp"
+            >
+              <WhatsAppIcon size={18} />
+            </motion.a>
+
             <motion.button
               onClick={scrollToTop}
-              className="p-2.5 rounded-xl border border-slate-200 bg-orange-50 hover:bg-orange-100 text-accent-blue transition-colors shadow-2xs ml-2 cursor-pointer"
+              className="w-10 h-10 p-2.5 rounded-xl border border-slate-200 bg-orange-50 hover:bg-orange-100 text-accent-blue transition-colors shadow-2xs ml-2 cursor-pointer flex items-center justify-center shrink-0"
               whileHover={{ scale: 1.08 }}
               aria-label="Back to top"
               title="Back to top"

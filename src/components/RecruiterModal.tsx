@@ -16,6 +16,7 @@ import {
   Clock,
   MapPin,
 } from 'lucide-react';
+import WhatsAppIcon from './WhatsAppIcon';
 import { portfolioData } from '../data/portfolioData';
 
 interface RecruiterModalProps {
@@ -261,6 +262,16 @@ const RecruiterModal: React.FC<RecruiterModalProps> = ({
                     >
                       <Github size={13} />
                       GitHub Profile
+                      <ExternalLink size={11} />
+                    </a>
+                    <a
+                      href={portfolioData.personal.whatsapp}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-1 text-accent-blue hover:underline font-medium"
+                    >
+                      <WhatsAppIcon size={13} />
+                      WhatsApp
                       <ExternalLink size={11} />
                     </a>
                   </div>

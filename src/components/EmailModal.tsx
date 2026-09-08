@@ -6,11 +6,11 @@ import {
   Copy,
   Check,
   ExternalLink,
-  MessageSquare,
   Sparkles,
   Phone,
   Send,
 } from 'lucide-react';
+import WhatsAppIcon from './WhatsAppIcon';
 import { portfolioData } from '../data/portfolioData';
 
 interface EmailModalProps {
@@ -126,21 +126,21 @@ const EmailModal: React.FC<EmailModalProps> = ({
                   {/* Gmail Web Compose */}
                   <button
                     onClick={openGmailWeb}
-                    className="p-3 rounded-xl bg-orange-50 hover:bg-orange-100 border border-accent-blue/30 text-accent-blue font-semibold text-xs sm:text-sm transition-all flex items-center justify-center gap-2 shadow-2xs hover:shadow-xs group"
+                    className="p-3 rounded-xl border border-slate-200 hover:border-accent-blue bg-white hover:bg-slate-50 text-primary-dark font-semibold text-xs sm:text-sm transition-all flex items-center justify-center gap-2 shadow-2xs hover:shadow-xs group"
                   >
-                    <Mail size={16} className="group-hover:scale-110 transition-transform" />
+                    <Mail size={16} className="text-text-secondary group-hover:text-accent-blue group-hover:scale-110 transition-all" />
                     <span>Open with Gmail Web</span>
-                    <ExternalLink size={12} className="opacity-70" />
+                    <ExternalLink size={12} className="text-text-secondary group-hover:text-accent-blue opacity-70" />
                   </button>
 
                   {/* WhatsApp */}
                   <button
                     onClick={openWhatsApp}
-                    className="p-3 rounded-xl bg-emerald-50 hover:bg-emerald-100 border border-emerald-300 text-emerald-700 font-semibold text-xs sm:text-sm transition-all flex items-center justify-center gap-2 shadow-2xs group"
+                    className="p-3 rounded-xl border border-slate-200 hover:border-accent-blue bg-white hover:bg-slate-50 text-primary-dark font-semibold text-xs sm:text-sm transition-all flex items-center justify-center gap-2 shadow-2xs hover:shadow-xs group"
                   >
-                    <MessageSquare size={16} className="group-hover:scale-110 transition-transform" />
+                    <WhatsAppIcon size={16} className="text-text-secondary group-hover:text-accent-blue group-hover:scale-110 transition-all" />
                     <span>Chat on WhatsApp</span>
-                    <ExternalLink size={12} className="opacity-70" />
+                    <ExternalLink size={12} className="text-text-secondary group-hover:text-accent-blue opacity-70" />
                   </button>
                 </div>
 

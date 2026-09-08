@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { fadeInUp, staggerContainer } from '../utils/animations';
 import { portfolioData } from '../data/portfolioData';
-import { Mail, Linkedin, Github, Copy, Check, Sparkles, MessageSquare, Phone } from 'lucide-react';
+import { Mail, Linkedin, Github, Copy, Check, Sparkles, Phone } from 'lucide-react';
+import WhatsAppIcon from './WhatsAppIcon';
 
 interface ContactProps {
   onOpenEmailModal?: (subject?: string, message?: string) => void;
@@ -119,11 +120,11 @@ const Contact: React.FC<ContactProps> = ({ onOpenEmailModal }) => {
               href="https://wa.me/919424766602?text=Hi%20Mihir%2C%20I%20saw%20your%20portfolio%20and%20would%20like%20to%20discuss%20an%20opportunity."
               target="_blank"
               rel="noopener noreferrer"
-              className="px-6 py-3.5 rounded-xl border border-emerald-300 bg-emerald-50 hover:bg-emerald-100 text-emerald-700 font-semibold transition-all flex items-center justify-center gap-2 shadow-2xs"
+              className="px-6 py-3.5 rounded-xl border border-card-border bg-card-bg hover:border-accent-blue text-text-secondary hover:text-accent-blue font-semibold transition-all flex items-center justify-center gap-2 shadow-sm hover:shadow-md"
               whileHover={{ scale: 1.04 }}
               whileTap={{ scale: 0.96 }}
             >
-              <MessageSquare size={18} />
+              <WhatsAppIcon size={18} />
               <span>WhatsApp</span>
             </motion.a>
 

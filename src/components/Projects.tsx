@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X } from 'lucide-react';
+import { X, ArrowRight, Layers, Copy, Check, Mail } from 'lucide-react';
 import { fadeInUp, staggerContainer, staggerItem } from '../utils/animations';
 import { portfolioData } from '../data/portfolioData';
 
@@ -11,103 +11,167 @@ interface ProjectModalProps {
 }
 
 const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, project }) => {
+  const [copied, setCopied] = useState(false);
+
+  const handleCopyArchitecture = () => {
+    if (project.architecture) {
+      navigator.clipboard.writeText(`${project.title} Architecture: ${project.architecture}`);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    }
+  };
+
+  const handleDiscussProject = () => {
+    const subject = encodeURIComponent(`Discussion: Architecture & Tech Stack of ${project.title}`);
+    const body = encodeURIComponent(
+      `Hi Mihir,\n\nI was reviewing the ${project.title} project on your portfolio and would like to discuss the architecture and implementation details.\n\nBest regards,\n`
+    );
+    window.open(`mailto:${portfolioData.personal.email}?subject=${subject}&body=${body}`, '_blank');
+  };
+
+  const archNodes = project.architecture ? project.architecture.split('→').map((s) => s.trim()) : [];
+
   return (
     <AnimatePresence>
       {isOpen && (
-        <>
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 overflow-y-auto">
           {/* Backdrop */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
-            className="fixed inset-0 bg-black/20 backdrop-blur-sm z-50"
+            className="fixed inset-0 bg-primary-dark/60 backdrop-blur-sm"
           />
 
           {/* Modal */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.9, y: 20 }}
+            initial={{ opacity: 0, scale: 0.94, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.9, y: 20 }}
-            className="fixed inset-4 md:inset-auto md:top-1/2 md:left-1/2 md:max-w-2xl md:-translate-x-1/2 md:-translate-y-1/2 z-50 overflow-y-auto"
+            exit={{ opacity: 0, scale: 0.94, y: 20 }}
+            transition={{ duration: 0.3 }}
+            className="relative w-full max-w-2xl bg-card-bg rounded-2xl border border-card-border shadow-2xl p-6 sm:p-8 z-10 my-6 max-h-[88vh] overflow-y-auto"
           >
-            <div className="bg-card-bg rounded-2xl border border-card-border p-8 shadow-xl">
-              {/* Close Button */}
-              <button
-                onClick={onClose}
-                className="absolute top-4 right-4 p-2 hover:bg-slate-100 rounded-lg transition-colors"
-                aria-label="Close modal"
-              >
-                <X size={24} className="text-text-secondary" />
-              </button>
+            {/* Close Button */}
+            <button
+              onClick={onClose}
+              className="absolute top-4 right-4 p-2 hover:bg-slate-100 rounded-lg transition-colors text-text-secondary"
+              aria-label="Close modal"
+            >
+              <X size={22} />
+            </button>
 
-              {/* Content */}
-              <div className="space-y-6">
-                <div>
-                  <span className="text-sm text-accent-blue font-semibold">
-                    {project.category}
-                  </span>
-                  <h2 className="text-3xl font-bold text-primary-dark mt-2">
-                    {project.title}
-                  </h2>
-                </div>
+            {/* Content */}
+            <div className="space-y-6">
+              <div>
+                <span className="text-xs text-accent-blue font-bold uppercase tracking-wider px-2.5 py-1 rounded-md bg-orange-50 border border-accent-blue/20">
+                  {project.category}
+                </span>
+                <h2 className="text-2xl sm:text-3xl font-bold text-primary-dark mt-3">
+                  {project.title}
+                </h2>
+              </div>
 
-                <p className="text-text-secondary leading-relaxed">
-                  {project.description}
-                </p>
+              <p className="text-text-secondary leading-relaxed text-sm sm:text-base">
+                {project.description}
+              </p>
 
-                {/* Technologies */}
-                <div>
-                  <h3 className="text-sm font-semibold text-primary-dark mb-3 uppercase tracking-wider">
-                    Technologies
-                  </h3>
-                  <div className="flex flex-wrap gap-2">
-                    {project.technologies.map((tech, idx) => (
-                      <span
-                        key={idx}
-                        className="px-3 py-1 text-xs rounded-full border border-accent-blue/30 bg-orange-50 text-accent-blue font-medium"
-                      >
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Highlights */}
-                <div>
-                  <h3 className="text-sm font-semibold text-primary-dark mb-3 uppercase tracking-wider">
-                    Key Highlights
-                  </h3>
-                  <ul className="space-y-2">
-                    {project.highlights.map((highlight, idx) => (
-                      <li
-                        key={idx}
-                        className="text-text-secondary flex items-start gap-2"
-                      >
-                        <span className="text-accent-blue mt-1.5 flex-shrink-0">
-                          ▪
-                        </span>
-                        <span>{highlight}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                {/* Architecture */}
-                {project.architecture && (
-                  <div>
-                    <h3 className="text-sm font-semibold text-primary-dark mb-3 uppercase tracking-wider">
-                      Architecture Overview
+              {/* Visual Architecture Flow Diagram */}
+              {archNodes.length > 0 && (
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between">
+                    <h3 className="text-xs font-bold text-primary-dark uppercase tracking-wider flex items-center gap-1.5">
+                      <Layers size={14} className="text-accent-blue" />
+                      <span>Distributed Architecture Flow</span>
                     </h3>
-                    <div className="p-4 rounded-lg bg-slate-50 border border-card-border font-mono text-xs text-text-secondary overflow-x-auto">
-                      {project.architecture}
+                    <button
+                      onClick={handleCopyArchitecture}
+                      className="text-xs text-accent-blue hover:text-orange-600 font-medium flex items-center gap-1 transition-colors"
+                      title="Copy architecture flow"
+                    >
+                      {copied ? (
+                        <>
+                          <Check size={13} className="text-emerald-500" />
+                          <span className="text-emerald-500 font-semibold">Copied!</span>
+                        </>
+                      ) : (
+                        <>
+                          <Copy size={13} />
+                          <span>Copy Flow</span>
+                        </>
+                      )}
+                    </button>
+                  </div>
+
+                  {/* Flow pipeline nodes */}
+                  <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 overflow-x-auto">
+                    <div className="flex items-center gap-2 min-w-max">
+                      {archNodes.map((node, idx) => (
+                        <React.Fragment key={idx}>
+                          <div className="px-3 py-1.5 rounded-lg bg-white border border-slate-200 text-xs font-mono font-medium text-primary-dark shadow-2xs">
+                            {node}
+                          </div>
+                          {idx < archNodes.length - 1 && (
+                            <ArrowRight size={14} className="text-accent-blue shrink-0" />
+                          )}
+                        </React.Fragment>
+                      ))}
                     </div>
                   </div>
-                )}
+                </div>
+              )}
+
+              {/* Technologies */}
+              <div>
+                <h3 className="text-xs font-bold text-primary-dark mb-3 uppercase tracking-wider">
+                  Technologies Utilized
+                </h3>
+                <div className="flex flex-wrap gap-2">
+                  {project.technologies.map((tech, idx) => (
+                    <span
+                      key={idx}
+                      className="px-3 py-1 text-xs rounded-lg border border-accent-blue/30 bg-orange-50 text-accent-blue font-medium"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              {/* Key Highlights */}
+              <div>
+                <h3 className="text-xs font-bold text-primary-dark mb-3 uppercase tracking-wider">
+                  Key Production Highlights
+                </h3>
+                <ul className="space-y-2">
+                  {project.highlights.map((highlight, idx) => (
+                    <li
+                      key={idx}
+                      className="text-xs sm:text-sm text-text-secondary flex items-start gap-2"
+                    >
+                      <span className="text-accent-blue mt-0.5 font-bold">▪</span>
+                      <span>{highlight}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* Modal Actions */}
+              <div className="pt-4 border-t border-slate-200 flex flex-wrap items-center justify-between gap-3">
+                <button
+                  onClick={handleDiscussProject}
+                  className="px-5 py-2.5 rounded-xl bg-accent-blue hover:bg-orange-600 text-white text-xs sm:text-sm font-semibold transition-all flex items-center gap-2 shadow-sm"
+                >
+                  <Mail size={15} />
+                  <span>Discuss This Project</span>
+                </button>
+                <span className="text-xs text-text-secondary">
+                  🔒 Enterprise Client Platform
+                </span>
               </div>
             </div>
           </motion.div>
-        </>
+        </div>
       )}
     </AnimatePresence>
   );
@@ -120,68 +184,64 @@ const ProjectCard: React.FC<{
   return (
     <motion.div
       variants={staggerItem}
-      whileHover={{ y: -10 }}
+      whileHover={{ y: -8 }}
       onClick={onClick}
-      className="group cursor-pointer"
+      className="group cursor-pointer h-full"
     >
-      <div className="relative rounded-2xl border border-card-border bg-card-bg overflow-hidden hover:border-accent-blue/50 transition-all p-8 h-full flex flex-col justify-between shadow-sm hover:shadow-lg">
+      <div className="relative rounded-2xl border border-card-border bg-card-bg overflow-hidden hover:border-accent-blue/50 transition-all p-6 sm:p-8 h-full flex flex-col justify-between shadow-sm hover:shadow-lg">
         {/* Glow Effect */}
-        <div className="absolute inset-0 opacity-0 group-hover:opacity-10 bg-gradient-to-r from-accent-blue to-accent-purple transition-opacity" />
+        <div className="absolute inset-0 opacity-0 group-hover:opacity-10 bg-gradient-to-r from-accent-blue to-accent-purple transition-opacity pointer-events-none" />
 
         <div className="relative z-10 space-y-4">
           {/* Category Badge */}
-          <span className="inline-block text-xs font-semibold text-accent-blue">
-            {project.category}
-          </span>
+          <div className="flex items-center justify-between">
+            <span className="inline-block text-xs font-bold text-accent-blue uppercase tracking-wider">
+              {project.category}
+            </span>
+            <span className="text-xs text-text-light font-mono group-hover:text-accent-blue transition-colors flex items-center gap-1">
+              <span>Inspect</span>
+              <ArrowRight size={13} className="group-hover:translate-x-1 transition-transform" />
+            </span>
+          </div>
 
           {/* Title */}
-          <h3 className="text-2xl font-bold text-primary-dark group-hover:text-accent-blue transition-colors">
+          <h3 className="text-xl sm:text-2xl font-bold text-primary-dark group-hover:text-accent-blue transition-colors">
             {project.title}
           </h3>
 
           {/* Description */}
-          <p className="text-text-secondary leading-relaxed">
+          <p className="text-text-secondary text-sm leading-relaxed">
             {project.shortDescription}
           </p>
 
           {/* Technologies */}
-          <div className="flex flex-wrap gap-2 pt-2">
+          <div className="flex flex-wrap gap-1.5 pt-2">
             {project.technologies.slice(0, 5).map((tech, idx) => (
               <span
                 key={idx}
-                className="px-2 py-1 text-xs rounded-full border border-accent-blue/20 bg-orange-50 text-accent-blue font-medium"
+                className="px-2.5 py-0.5 text-xs rounded-md border border-accent-blue/20 bg-orange-50 text-accent-blue font-medium"
               >
                 {tech}
               </span>
             ))}
             {project.technologies.length > 5 && (
-              <span className="px-2 py-1 text-xs text-text-secondary">
-                +{project.technologies.length - 5}
+              <span className="px-2 py-0.5 text-xs text-text-secondary">
+                +{project.technologies.length - 5} more
               </span>
             )}
           </div>
         </div>
 
-        {/* Arrow Icon */}
-        <motion.div
-          className="relative z-10 pt-4"
-          animate={{ x: [0, 5, 0], y: [0, -5, 0] }}
-          transition={{ duration: 2, repeat: Infinity }}
-        >
-          <svg
-            className="w-6 h-6 text-accent-blue"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
-            />
-          </svg>
-        </motion.div>
+        {/* Card Footer */}
+        <div className="relative z-10 pt-6 mt-4 border-t border-slate-100 flex items-center justify-between text-xs text-text-secondary">
+          <span className="font-mono text-[11px] truncate max-w-[240px]">
+            {project.architecture ? 'Event-Driven Microservices' : 'Full Stack Application'}
+          </span>
+          <span className="text-accent-blue font-semibold group-hover:underline flex items-center gap-1">
+            View Details
+            <ArrowRight size={13} />
+          </span>
+        </div>
       </div>
     </motion.div>
   );

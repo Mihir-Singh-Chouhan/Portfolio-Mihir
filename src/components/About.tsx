@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
+import { Layers, ShieldCheck, Lock, Boxes, Code2 } from 'lucide-react';
 import { fadeInUp, staggerContainer, staggerItem } from '../utils/animations';
 import { portfolioData } from '../data/portfolioData';
 
@@ -74,32 +75,45 @@ const PhilosophyCard: React.FC<{
   icon: string;
 }> = ({ title, description, icon }) => {
   const getIcon = (iconName: string) => {
-    const iconProps = { size: 32, className: 'text-accent-blue' };
-    switch (iconName) {
-      case 'TrendingUp':
-        return <svg {...iconProps} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 17"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg>;
-      case 'Shield':
-        return <svg {...iconProps} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>;
-      case 'Lock':
-        return <svg {...iconProps} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>;
-      case 'Code':
-        return <svg {...iconProps} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>;
+    const iconClass = "w-6 h-6 sm:w-7 sm:h-7 text-accent-blue group-hover:scale-110 transition-transform duration-300";
+    switch (iconName.toLowerCase()) {
+      case 'layers':
+      case 'scalable':
+      case 'trendingup':
+        return <Layers className={iconClass} />;
+      case 'shieldcheck':
+      case 'reliable':
+      case 'shield':
+        return <ShieldCheck className={iconClass} />;
+      case 'lock':
+      case 'secure':
+        return <Lock className={iconClass} />;
+      case 'boxes':
+      case 'maintainable':
+      case 'code':
+        return <Boxes className={iconClass} />;
       default:
-        return null;
+        return <Code2 className={iconClass} />;
     }
   };
 
   return (
     <motion.div
       variants={staggerItem}
-      whileHover={{ y: -10 }}
-      className="p-6 rounded-xl border border-card-border bg-card-bg hover:bg-slate-50 transition-all group cursor-pointer shadow-sm hover:shadow-md"
+      whileHover={{ y: -8, boxShadow: '0 12px 28px rgba(249, 115, 22, 0.12)' }}
+      className="p-6 rounded-xl border border-card-border bg-card-bg hover:border-accent-blue/40 transition-all group cursor-pointer shadow-sm hover:shadow-md flex flex-col justify-between"
     >
-      <div className="mb-4 p-3 w-fit rounded-lg bg-orange-100 group-hover:bg-orange-200 transition-colors">
-        {getIcon(icon)}
+      <div>
+        <div className="mb-4 p-3.5 w-fit rounded-xl bg-orange-50 border border-orange-200/60 group-hover:bg-orange-100 group-hover:border-accent-blue/40 transition-all duration-300 shadow-xs">
+          {getIcon(icon)}
+        </div>
+        <h3 className="text-lg font-bold text-primary-dark mb-2 group-hover:text-accent-blue transition-colors">
+          {title}
+        </h3>
+        <p className="text-text-secondary text-sm leading-relaxed">
+          {description}
+        </p>
       </div>
-      <h3 className="text-lg font-bold text-primary-dark mb-2">{title}</h3>
-      <p className="text-text-secondary text-sm leading-relaxed">{description}</p>
     </motion.div>
   );
 };

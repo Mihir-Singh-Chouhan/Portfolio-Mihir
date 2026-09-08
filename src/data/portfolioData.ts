@@ -28,6 +28,25 @@ export interface Achievement {
   source: string;
   date?: string;
   icon?: string;
+  logo?: string;
+  url?: string;
+}
+
+export interface Education {
+  institution: string;
+  degree: string;
+  cgpa: string;
+  year: string;
+  logo?: string;
+  location?: string;
+}
+
+export interface Certification {
+  title: string;
+  issuer: string;
+  date?: string;
+  url?: string;
+  credentialId?: string;
 }
 
 export const portfolioData = {
@@ -36,10 +55,45 @@ export const portfolioData = {
     title: "Full Stack Developer",
     email: "mschouhan6855@gmail.com",
     linkedin: "https://www.linkedin.com/in/mihir-singh-chouhan",
-    github: "",
+    github: "https://github.com/Mihir-Singh-Chouhan",
     location: "India",
     availability: "Available for opportunities",
-    yearsExperience: "1.7+",
+    noticePeriod: "Immediate / Negotiable",
+    yearsExperience: "1.9+",
+    phone: "+91-9424766602",
+    whatsapp: "https://wa.me/919424766602",
+    avatar: "/images/mihir.png",
+    resumeUrl: "/Mihir_Singh_Chouhan_Resume.pdf",
+  },
+  coreSkills: [
+    "Java",
+    "Spring Boot",
+    "Microservices",
+    "React",
+    "Kafka",
+    "Redis",
+    "Docker",
+    "MySQL",
+    "REST APIs",
+    "Kubernetes",
+  ],
+  recruiterDossier: {
+    targetRoles: [
+      "Java Full Stack Developer",
+      "Backend Engineer",
+      "Java / Spring Boot Developer",
+    ],
+    experience: "1.9+ Years",
+    currentCompany: "Digi Mantra Labs",
+    noticePeriod: "Immediate / Open for Opportunities",
+    preferredLocation: "Hybrid / Remote / Open to Relocation",
+    topHighlights: [
+      "Designed & scaled backend microservices handling high transaction volumes (10M+ users supported)",
+      "Reduced REST API latency by 30% via query optimization, database indexing & Redis distributed caching",
+      "Built resilient, idempotent APIs with 90%+ unit test coverage (JUnit, Mockito)",
+      "5★ HackerRank rating in C++ and 4★ rating in Java",
+      "MCA graduate with 8.00 CGPA from Lovely Professional University",
+    ],
   },
   hero: {
     badge: "FULL STACK DEVELOPER",
@@ -61,12 +115,12 @@ export const portfolioData = {
     {
       title: "Scalable",
       description: "Design systems that can handle growing traffic and users.",
-      icon: "TrendingUp",
+      icon: "Layers",
     },
     {
       title: "Reliable",
       description: "Focus on testing, error handling, observability and fault tolerance.",
-      icon: "Shield",
+      icon: "ShieldCheck",
     },
     {
       title: "Secure",
@@ -76,7 +130,7 @@ export const portfolioData = {
     {
       title: "Maintainable",
       description: "Apply SOLID principles and modular architecture.",
-      icon: "Code",
+      icon: "Boxes",
     },
   ],
   experience: [
@@ -211,16 +265,22 @@ export const portfolioData = {
       title: "5★ HackerRank — C++",
       source: "HackerRank",
       icon: "Star",
+      logo: "/images/Hackerrank_Logo.png",
+      url: "https://www.hackerrank.com/profile/mschouhan6855",
     },
     {
       title: "4★ HackerRank — Java",
       source: "HackerRank",
       icon: "Star",
+      logo: "/images/Hackerrank_Logo.png",
+      url: "https://www.hackerrank.com/profile/mschouhan6855",
     },
     {
       title: "120+ Active Problem-Solving Days",
       source: "LeetCode",
       icon: "TrendingUp",
+      logo: "/images/Leetcode_Logo.png",
+      url: "https://leetcode.com/",
     },
   ] as Achievement[],
   education: [
@@ -229,6 +289,8 @@ export const portfolioData = {
       degree: "Master of Computer Applications — MCA",
       cgpa: "8.00",
       year: "August 2023",
+      logo: "/images/lpu-logo.png",
+      location: "Punjab, India",
     },
   ],
   certifications: [
@@ -236,13 +298,15 @@ export const portfolioData = {
       title: "SQL Injection Attack",
       issuer: "EC Council",
       date: "November 2024",
+      credentialId: "ECC-CERT-2024",
     },
     {
       title: "Summer Internship — Web Development",
       issuer: "Coding Blocks",
       date: "June 2024",
+      credentialId: "CB-WD-2024",
     },
-  ],
+  ] as Certification[],
   technologies: [
     "Java",
     "Spring Boot",

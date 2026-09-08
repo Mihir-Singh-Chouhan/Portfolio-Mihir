@@ -10,12 +10,27 @@ import Skills from './components/Skills';
 import Achievements from './components/Achievements';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
+import RecruiterModal from './components/RecruiterModal';
+import ResumeModal from './components/ResumeModal';
+import EmailModal from './components/EmailModal';
 import { useScrollProgress, useReducedMotion } from './hooks/useAnimation';
 
 function App() {
   const [activeSection, setActiveSection] = useState('home');
+  const [isRecruiterModalOpen, setIsRecruiterModalOpen] = useState(false);
+  const [isResumeModalOpen, setIsResumeModalOpen] = useState(false);
+  const [isEmailModalOpen, setIsEmailModalOpen] = useState(false);
+  const [emailModalSubject, setEmailModalSubject] = useState<string | undefined>();
+  const [emailModalMessage, setEmailModalMessage] = useState<string | undefined>();
+
   const prefersReducedMotion = useReducedMotion();
   const scrollProgress = useScrollProgress();
+
+  const handleOpenEmailModal = (subject?: string, message?: string) => {
+    setEmailModalSubject(subject);
+    setEmailModalMessage(message);
+    setIsEmailModalOpen(true);
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -55,22 +70,60 @@ function App() {
       />
 
       {/* Navbar */}
-      <Navbar activeSection={activeSection} onNavigate={setActiveSection} />
+      <Navbar
+        activeSection={activeSection}
+        onNavigate={setActiveSection}
+        onOpenRecruiterModal={() => setIsRecruiterModalOpen(true)}
+        onOpenResumeModal={() => setIsResumeModalOpen(true)}
+        onOpenEmailModal={() => handleOpenEmailModal()}
+      />
 
       {/* Main Content */}
       <main>
-        <Hero />
+        <Hero
+          onOpenRecruiterModal={() => setIsRecruiterModalOpen(true)}
+          onOpenResumeModal={() => setIsResumeModalOpen(true)}
+          onOpenEmailModal={() => handleOpenEmailModal()}
+        />
         <TechnologyMarquee />
         <About />
         <Experience />
         <Projects />
         <Skills />
         <Achievements />
-        <Contact />
+        <Contact onOpenEmailModal={handleOpenEmailModal} />
       </main>
 
       {/* Footer */}
-      <Footer />
+      <Footer onOpenEmailModal={() => handleOpenEmailModal()} />
+
+      {/* Recruiter Quick View Modal */}
+      <RecruiterModal
+        isOpen={isRecruiterModalOpen}
+        onClose={() => setIsRecruiterModalOpen(false)}
+        onOpenResume={() => {
+          setIsRecruiterModalOpen(false);
+          setIsResumeModalOpen(true);
+        }}
+        onOpenEmailModal={(subject, message) => {
+          setIsRecruiterModalOpen(false);
+          handleOpenEmailModal(subject, message);
+        }}
+      />
+
+      {/* Digital Resume & PDF Download Modal */}
+      <ResumeModal
+        isOpen={isResumeModalOpen}
+        onClose={() => setIsResumeModalOpen(false)}
+      />
+
+      {/* Direct Contact & Email Modal (Guaranteed Cross-Platform) */}
+      <EmailModal
+        isOpen={isEmailModalOpen}
+        onClose={() => setIsEmailModalOpen(false)}
+        initialSubject={emailModalSubject}
+        initialMessage={emailModalMessage}
+      />
 
       {/* Prefers Reduced Motion Styles */}
       {prefersReducedMotion && (
